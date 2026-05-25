@@ -1,1113 +1,585 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-  
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
- <meta property="og:title" content="SKF shop" />
-    <meta property="og:description" content="The Next Shopping For Future By:MGM" />
-    <meta property="og:image" content="https://1rumah.github.io/ecommers.SKF9.com/team.jpg" />
-    <meta property="og:url" content="https://1rumah.github.io/ecommers.SKF9.com/index.html/team.jpg"/>
-    <meta property="og:type" content="website" />
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      font-family: 'Roboto', sans-serif;
-      box-sizing: border-box;
-    }
-    body {
-      background-color: #f5f5f5;
-    }
-    .header {
-      background-color: #f44336;
-      color: black;
-      padding: 12px;
-      text-align: left-side;
-      position: sticky;
-      top: 0;
-    }
-    .search-bar {
-      background-color: #f44336;
-      padding: 1px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .search-bar input {
-      flex: 1;
-      padding: 8px;
-      border-radius: 9px;
-      border: none;
-      background-color: #f1f1f1;
-    }
-    .menu-icons {
-      display: flex;
-      justify-content: space-around;
-      padding: 10px;
-      background: white;
-    }
-    .menu-icons div {
-      text-align: center;
-      font-size: 12px;
-    }
-    .section {
-      margin: 10px;
-    }
-    .section-title {
-      margin-bottom: 5px;
-      font-weight: bold;
-    }
-    .live-videos, .video-grid {
-      display: flex;
-      gap: 10px;
-      overflow-x: auto;
-    }
-   
-    .promo-banner, .product-card {
-      margin: 10px;
-      background: red;
-      border-radius: 10px;
-      padding: 12px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    }
-    .promo-banner img, .product-card img {
-      width: 100%;
-      border-radius: 8px;
-    }
-    .bottom-nav {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      background: white;
-      display: flex;
-      justify-content: space-around;
-      border-top: 1px solid #ccc;
-      padding: 6px 0;
-    }
-    .bottom-nav div {
-      font-size: 12px;
-      text-align: center;
-    }
-    .badge {
-      background: red;
-      color: white;
-      font-size: 10px;
-      padding: 2px 6px;
-      border-radius: 50%;
-      position: absolute;
-      top: -5px;
-      right: -5px;
-    }
-  </style>
-  
-   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-    }
+    <title>Futuristic Dashboard - PT International Cassava Center</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: '#050814',
+                        cardBg: 'rgba(10, 15, 36, 0.75)',
+                        neonCyan: '#00f2fe',
+                        neonPurple: '#7f00ff',
+                        neonGreen: '#00ff88',
+                        neonPink: '#ff007f',
+                        neonYellow: '#ffea00',
+                        neonBlue: '#4facfe'
+                    },
+                    fontFamily: {
+                        'rajdhani': ['Rajdhani', 'sans-serif'],
+                        'orbitron': ['Orbitron', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&family=Rajdhani:wght@500;600;700&display=swap');
+        
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background-color: #050814;
+            color: #e2e8f0;
+            overflow-x: hidden;
+            /* Futuristic Grid Background */
+            background-image: 
+                linear-gradient(rgba(0, 242, 254, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 242, 254, 0.05) 1px, transparent 1px);
+            background-size: 30px 30px;
+            background-position: center center;
+        }
 
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+        .cyber-title {
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px #00f2fe, 0 0 20px #00f2fe;
+        }
 
-    .search-bar {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+        /* HUD Card Styling */
+        .cyber-card {
+            background: rgba(10, 15, 36, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 242, 254, 0.15);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+            border-radius: 8px;
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
 
-    .cart-icon {
-      cursor: pointer;
-      position: relative;
-    }
+        /* Sci-Fi Corners */
+        .cyber-card::before, .cyber-card::after {
+            content: '';
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            border-color: transparent;
+            border-style: solid;
+            transition: border-color 0.3s ease;
+        }
+        .cyber-card::before {
+            top: -1px; left: -1px;
+            border-width: 2px 0 0 2px;
+            border-top-color: #00f2fe;
+            border-left-color: #00f2fe;
+        }
+        .cyber-card::after {
+            bottom: -1px; right: -1px;
+            border-width: 0 2px 2px 0;
+            border-bottom-color: #00f2fe;
+            border-right-color: #00f2fe;
+        }
 
-    .badge {
-      position: absolute;
-      top: -10px;
-      right: -10px;
-      background-color: red;
-      color: white;
-      border-radius: 50%;
-      padding: 2px 6px;
-      font-size: 12px;
-    }
+        .cyber-card:hover {
+            border-color: rgba(0, 242, 254, 0.5);
+            box-shadow: 0 0 20px rgba(0, 242, 254, 0.2), inset 0 0 15px rgba(0, 242, 254, 0.05);
+            transform: translateY(-3px);
+        }
 
-    .hidden-form {
-      display: none;
-      position: absolute;
-      top: 60px;
-      right: 20px;
-      background: #fff;
-      border: 1px solid #ccc;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-      padding: 20px;
-      width: 300px;
-      z-index: 100;
-    }
+        /* Value Text Styling */
+        .value-text {
+            font-family: 'Orbitron', sans-serif;
+        }
 
-    .form-section input {
-      display: block;
-      width: 100%;
-      margin-bottom: 10px;
-      padding: 8px;
-      box-sizing: border-box;
-    }
+        /* Specific Glow Colors */
+        .glow-cyan { text-shadow: 0 0 10px rgba(0, 242, 254, 0.8); }
+        .glow-purple { text-shadow: 0 0 10px rgba(127, 0, 255, 0.8); }
+        .glow-pink { text-shadow: 0 0 10px rgba(255, 0, 127, 0.8); }
+        .glow-green { text-shadow: 0 0 10px rgba(0, 255, 136, 0.8); }
 
-    .form-section button {
-      width: 100%;
-      padding: 10px;
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-
-    .form-section button:hover {
-      background-color: #45a049;
-    }
-	
-	  @media (max-width: 600px) {
-      .section-title {
-        font-size: 20px;
-      }
-
-      .card {
-        max-width: 90%;
-      }
-    }
-	
-	
-	.harga .normal {
-      text-decoration: line-through;
-      color: #888;
-      margin-right: 8px;
-    }
-
-    .harga .diskon {
-      color: #e53935;
-      font-weight: bold;
-    }
-  </style>
-  
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #050814; }
+        ::-webkit-scrollbar-thumb { background: #00f2fe; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #4facfe; box-shadow: 0 0 10px #00f2fe; }
+    </style>
 </head>
-<body>
+<body class="p-4 md:p-8">
+    <header class="w-full max-w-7xl mx-auto mb-8 flex flex-col md:flex-row justify-between items-center p-5 cyber-card border-b-4 border-neonCyan">
+        <div class="flex items-center space-x-5 mb-4 md:mb-0">
+            <div class="w-14 h-14 rounded-lg bg-white/10 flex items-center justify-center shadow-[0_0_20px_rgba(0,242,254,0.4)] border border-neonCyan/50">
+                <i class="fa-solid fa-microchip text-neonCyan text-3xl animate-pulse"></i>
+            </div>
+            <div>
+                <h1 class="text-2xl font-bold text-white cyber-title">PT INTERNATIONAL CASSAVA CENTER</h1>
+                <p class="text-sm text-neonCyan font-orbitron tracking-widest uppercase mt-1">Realtime Multi-Division Matrix System</p>
+            </div>
+        </div>
+        <div class="flex items-center space-x-6 text-sm font-orbitron">
+            <div class="text-right">
+                <p class="text-gray-400 text-[10px] tracking-widest mb-1">SYSTEM INTEGRATION</p>
+                <div class="flex space-x-2">
+                    <span class="px-2 py-1 bg-neonGreen/10 text-neonGreen text-[10px] rounded border border-neonGreen/40 shadow-[0_0_5px_rgba(0,255,136,0.3)]"><i class="fa-brands fa-google-drive mr-1"></i>Sheets Live</span>
+                    <span class="px-2 py-1 bg-neonBlue/10 text-neonBlue text-[10px] rounded border border-neonBlue/40 shadow-[0_0_5px_rgba(79,172,254,0.3)]"><i class="fa-solid fa-robot mr-1"></i>Bot Active</span>
+                </div>
+            </div>
+            <div class="border-l border-cyan-900/50 pl-4 text-center">
+                <p class="text-[10px] text-gray-400 tracking-widest">SYSTEM CLOCK</p>
+                <p id="live-clock" class="text-neonCyan font-bold text-xl tracking-wider glow-cyan">00:00:00</p>
+            </div>
+        </div>
+    </header>
 
+    <main class="w-full max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div class="cyber-card p-6 flex flex-col relative overflow-hidden group">
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <p class="text-xs text-neonCyan font-bold uppercase tracking-widest mb-2"><i class="fa-solid fa-chart-line mr-2"></i>Total Penjualan</p>
+                        <p class="text-2xl font-bold text-white value-text glow-cyan" id="card-penjualan">Memuat...</p>
+                    </div>
+                </div>
+                <div class="w-full bg-gray-800 h-1 rounded-full mt-auto overflow-hidden"><div class="bg-neonCyan h-full shadow-[0_0_10px_#00f2fe]" style="width: 75%"></div></div>
+            </div>
 
-<audio id="cartSound" src="sounds/1.mp3" preload="auto"></audio>
+            <div class="cyber-card p-6 flex flex-col relative overflow-hidden group hover:border-neonPurple">
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <p class="text-xs text-neonPurple font-bold uppercase tracking-widest mb-2"><i class="fa-solid fa-vault mr-2"></i>Total Kas</p>
+                        <p class="text-2xl font-bold text-white value-text glow-purple" id="card-kas">Memuat...</p>
+                    </div>
+                </div>
+                <div class="w-full bg-gray-800 h-1 rounded-full mt-auto overflow-hidden"><div class="bg-neonPurple h-full shadow-[0_0_10px_#7f00ff]" style="width: 60%"></div></div>
+            </div>
 
+            <div class="cyber-card p-6 flex flex-col relative overflow-hidden group hover:border-neonPink">
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <p class="text-xs text-neonPink font-bold uppercase tracking-widest mb-2"><i class="fa-solid fa-cart-shopping mr-2"></i>Total Pembelian</p>
+                        <p class="text-2xl font-bold text-white value-text glow-pink" id="card-pembelian">Memuat...</p>
+                    </div>
+                </div>
+                <div class="w-full bg-gray-800 h-1 rounded-full mt-auto overflow-hidden"><div class="bg-neonPink h-full shadow-[0_0_10px_#ff007f]" style="width: 45%"></div></div>
+            </div>
 
-
-
-<div class="promo-banner">
-  <video src="images/bannerutama.mp4" autoplay muted loop playsinline
-    style="width: 100%; height: auto;"></video>
-  <div class="header">
-    <div class="search-bar">
-       🔍<input type="search" id="search-box" placeholder="search here...">
-     <div class="cart-icon">
-      <br>
-      <span></span>
-    </div>
-  </div>
-
-
-
-
- <!-- Tempelkan di bagian <body> (misalnya di navbar atau pojok kanan atas) -->
-<div style="position: fixed; top: 10px; right: 10px; font-size: 24px;">
-  <span style="position: relative; display: inline-block;">
-    🛒
-    <span id="cartCount" style="
-      position: absolute;
-      top: -10px;
-      right: -10px;
-      background-color: red;
-      color: white;
-      border-radius: 50%;
-      padding: 2px 6px;
-      font-size: 12px;
-      font-weight: bold;
-      line-height: 1;
-      min-width: 20px;
-      text-align: center;
-    ">0</span>
-  </span>
-</div>
-
-
-  </div>
-</div>
-</div>
-    </div>
-  </header>
-
-
-
-
-
-
-
-
-
-
-
-
-  <div class="hidden-form" id="checkoutFormBox">
-    <div class="cart">
-      <p>Produk: <span id="produkList">-</span></p>
-      <p>Total Harga: Rp <span id="cartTotal">0</span></p>
-    </div>
-
-    <div class="form-section">
-      <h3>📝 Formulir Pembelian</h3>
-      <form id="checkoutForm">
-        <input type="text" id="nama" placeholder="Nama" required>
-        <input type="text" id="alamat" placeholder="Alamat" required>
-        <input type="text" id="nohp" placeholder="No HP" required>
-        <input type="text" id="produk" placeholder="Produk" readonly>
-        <input type="text" id="jumlahBayar" placeholder="Jumlah Bayar" readonly>
-        <button type="button" onclick="generatePDF()">Check Out</button>
-      </form>
-    </div>
-  </div>
-
-  <script>
-    function toggleForm() {
-      const formBox = document.getElementById('checkoutFormBox');
-      formBox.style.display = (formBox.style.display === 'block') ? 'none' : 'block';
-    }
-
-    function generatePDF() {
-      alert("Fungsi generate PDF berjalan di sini...");
-      // Tambahkan logika untuk buat PDF di sini
-    }
-  </script>
-
- 
- <!-- Search Form start -->
-    
-     
-      <label for="search-box"><i data-feather="search"></i></label>
-    
-    <!-- Search Form end -->
-	
- 
- 
-	
-
-	
-	
- <div class="section">
-    <div class="section-title">Best Seller</div>
-	  <div class="video-grid">
-    <div class="live-videos">
-
-      <div class="card">
-         <video src="images/1.mp4" autoplay muted loop playsinline
-    style="width: 100%; height: auto;"></video>
-         <div class="product" data-nama="Beras Premium" data-harga="30000">
-          <button onclick="addToCart(this)">
-		  <div class="harga">
-      <span class="normal">Rp35.000</span>
-      <span class="diskon">Rp30.000</span></button>
-    </div>  
+            <div class="cyber-card p-6 flex flex-col relative overflow-hidden group hover:border-neonGreen">
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <p class="text-xs text-neonGreen font-bold uppercase tracking-widest mb-2"><i class="fa-solid fa-cubes mr-2"></i>Sisa Stok Realtime</p>
+                        <p class="text-2xl font-bold text-white value-text glow-green" id="card-stok">Memuat...</p>
+                    </div>
+                </div>
+                <div class="w-full bg-gray-800 h-1 rounded-full mt-auto overflow-hidden"><div class="bg-neonGreen h-full shadow-[0_0_10px_#00ff88]" style="width: 85%"></div></div>
+            </div>
         </div>
 
-      <div class="card">
-        <video src="images/2.mp4" autoplay muted loop playsinline
-    style="width: 100%; height: auto;"></video>
-        <div class="product" data-nama="SKF Kopi WINE" data-harga="15000">
-           <button onclick="addToCart(this)">
-		  <div class="harga">
-      <span class="normal">Rp20.000</span>
-      <span class="diskon">Rp15.000</span></button>
-    </div>  
-      </div>
-
-    <div class="card">
-         <video src="images/1.mp4" autoplay muted loop playsinline
-    style="width: 100%; height: auto;"></video>
-         <div class="product" data-nama="Beras Premium" data-harga="30000">
-          <button onclick="addToCart(this)">
-		  <div class="harga">
-      <span class="normal">Rp35.000</span>
-      <span class="diskon">Rp30.000</span></button>
-    </div>  
-        </div>
- <div class="card">
-        <video src="images/2.mp4" autoplay muted loop playsinline
-    style="width: 100%; height: auto;"></video>
-        <div class="product" data-nama="SKF Kopi WINE" data-harga="15000">
-           <button onclick="addToCart(this)">
-		  <div class="harga">
-      <span class="normal">Rp20.000</span>
-      <span class="diskon">Rp15.000</span></button>
-    </div>  
-      </div>
-   <div class="card">
-         <video src="images/1.mp4" autoplay muted loop playsinline
-    style="width: 100%; height: auto;"></video>
-         <div class="product" data-nama="Beras Premium" data-harga="30000">
-          <button onclick="addToCart(this)">
-		  <div class="harga">
-      <span class="normal">Rp35.000</span>
-      <span class="diskon">Rp30.000</span></button>
-    </div>  
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+            <div class="cyber-card p-6">
+                <h3 class="text-sm font-bold text-neonCyan mb-4 uppercase tracking-widest border-b border-neonCyan/30 pb-2"><i class="fa-solid fa-wave-square mr-2"></i>Trend Penjualan Harian</h3>
+                <div class="relative h-72 w-full"><canvas id="salesChart"></canvas></div>
+            </div>
+            
+            <div class="cyber-card p-6">
+                <h3 class="text-sm font-bold text-neonPurple mb-4 uppercase tracking-widest border-b border-neonPurple/30 pb-2"><i class="fa-solid fa-chart-pie mr-2"></i>Komposisi Stok</h3>
+                <div class="relative h-72 w-full flex justify-center items-center"><canvas id="stockChart"></canvas></div>
+            </div>
         </div>
 
-       <div class="card">
-        <video src="images/2.mp4" autoplay muted loop playsinline
-    style="width: 100%; height: auto;"></video>
-        <div class="product" data-nama="SKF Kopi WINE" data-harga="15000">
-           <button onclick="addToCart(this)">
-		  <div class="harga">
-      <span class="normal">Rp20.000</span>
-      <span class="diskon">Rp15.000</span></button>
-    </div>  
-      </div>
-    </div>
-  </div>
-  
-  
-  
-  
-  <div class="section">
-    <div class="section-title">Hot sale</div>
-    <div class="video-grid">
-      <div class="card">
-         <video src="images/3.mp4" autoplay muted loop playsinline
-    style="width: 100%; height: auto;"></video>
-       <div class="product" data-nama="SKF Kopi WINE" data-harga="15000">
-           <button onclick="addToCart(this)">
-		  <div class="harga">
-      <span class="diskon">Rp15.000</span></button>
-    </div>  
-      </div>
-      <div class="card">
-         <video src="images/4.mp4" autoplay muted loop playsinline
-    style="width: 100%; height: auto;"></video>
-         <div class="product" data-nama="SKF Kopi WINE" data-harga="15000">
-           <button onclick="addToCart(this)">
-		  <div class="harga">
-      <span class="diskon">Rp15.000</span></button>
-    </div>  
-	</div> 
-	   <div class="card">
-         <video src="images/5.mp4" autoplay muted loop playsinline
-    style="width: 100%; height: auto;"></video>
-         <div class="product" data-nama="SKF Kopi WINE" data-harga="15000">
-           <button onclick="addToCart(this)">
-		  <div class="harga">
-      <span class="diskon">Rp15.000</span></button>
-    </div>  
-	</div> 
-	  <div class="card">
-         <video src="images/3.mp4" autoplay muted loop playsinline
-    style="width: 100%; height: auto;"></video>
-        <div class="product" data-nama="SKF Kopi WINE" data-harga="15000">
-           <button onclick="addToCart(this)">
-		  <div class="harga">
-      <span class="diskon">Rp15.000</span></button>
-    </div>  
-	</div>  
-      <div class="card">
-         <video src="images/4.mp4" autoplay muted loop playsinline
-    style="width: 100%; height: auto;"></video>
-         <div class="product" data-nama="SKF Kopi WINE" data-harga="15000">
-           <button onclick="addToCart(this)">
-		  <div class="harga">
-      <span class="diskon">Rp15.000</span></button>
-    </div>  
-	</div>
-	   <div class="card">
-         <video src="images/4.mp4" autoplay muted loop playsinline
-    style="width: 100%; height: auto;"></video>
-        <div class="product" data-nama="SKF Kopi WINE" data-harga="15000">
-           <button onclick="addToCart(this)">
-		  <div class="harga">
-      <span class="diskon">Rp15.000</span></button>
-    </div>  
-	</div>
-	   <div class="card">
-         <video src="images/5.mp4" autoplay muted loop playsinline
-    style="width: 100%; height: auto;"></video>
-         <div class="product" data-nama="SKF Kopi WINE" data-harga="15000">
-           <button onclick="addToCart(this)">
-		  <div class="harga">
-      <span class="diskon">Rp15.000</span></button>
-    </div>  
-	</div>  
-	  <div class="card">
-         <video src="images/3.mp4" autoplay muted loop playsinline
-    style="width: 100%; height: auto;"></video>
-        <div class="product" data-nama="SKF Kopi WINE" data-harga="15000">
-           <button onclick="addToCart(this)">
-		  <div class="harga">
-      <span class="diskon">Rp15.000</span></button>
-    </div>  
-    </div>
-  </div>
- </div>  </div>
-  <div class="promo-banner">
-  <video src="images/banner1.mp4" autoplay muted loop playsinline
-    style="width: 100%; height: auto;"></video>
-   
-  </div>
-
- 
- <div class="section">
-    <div class="section-title">ALAT PERTANIAN</div>
-	  <div class="video-grid">
-    <div class="live-videos">
-
-      <div class="card">
-         <video src="images/1.mp4" autoplay muted loop playsinline
-    style="width: 100%; height: auto;"></video>
-         <div class="product" data-nama="Beras Premium" data-harga="30000">
-          <button onclick="addToCart(this)">
-		  <div class="harga">
-      <span class="normal">Rp35.000</span>
-      <span class="diskon">Rp30.000</span></button>
-    </div>  
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+            <div class="cyber-card p-6">
+                <h3 class="text-sm font-bold text-neonPink mb-4 uppercase tracking-widest border-b border-neonPink/30 pb-2"><i class="fa-solid fa-chart-column mr-2"></i>Dominasi Penjualan Item</h3>
+                <div class="relative h-72 w-full"><canvas id="productChart"></canvas></div>
+            </div>
+            
+            <div class="cyber-card p-6">
+                <h3 class="text-sm font-bold text-neonYellow mb-4 uppercase tracking-widest border-b border-neonYellow/30 pb-2"><i class="fa-solid fa-users-viewfinder mr-2"></i>Kategori Customer</h3>
+                <div class="relative h-72 w-full flex justify-center items-center"><canvas id="customerChart"></canvas></div>
+            </div>
         </div>
 
-      <div class="card">
-        <video src="images/2.mp4" autoplay muted loop playsinline
-    style="width: 100%; height: auto;"></video>
-        <div class="product" data-nama="SKF Kopi WINE" data-harga="15000">
-           <button onclick="addToCart(this)">
-		  <div class="harga">
-      <span class="normal">Rp20.000</span>
-      <span class="diskon">Rp15.000</span></button>
-    </div>  
-      </div>
-
-    <div class="card">
-         <video src="images/1.mp4" autoplay muted loop playsinline
-    style="width: 100%; height: auto;"></video>
-         <div class="product" data-nama="Beras Premium" data-harga="30000">
-          <button onclick="addToCart(this)">
-		  <div class="harga">
-      <span class="normal">Rp35.000</span>
-      <span class="diskon">Rp30.000</span></button>
-    </div>  
+        <div class="cyber-card overflow-hidden mb-10">
+            <div class="px-6 py-4 border-b border-neonCyan/30 flex justify-between items-center bg-black/40">
+                <h3 class="text-sm font-bold text-neonCyan uppercase tracking-widest"><i class="fa-solid fa-server mr-2"></i>Log Transaksi Terbaru</h3>
+                <button class="text-[10px] font-orbitron uppercase px-4 py-2 bg-neonCyan/20 hover:bg-neonCyan/40 text-neonCyan rounded border border-neonCyan/50 transition-all shadow-[0_0_10px_rgba(0,242,254,0.2)]">
+                    <i class="fa-solid fa-download mr-1"></i> Export Data
+                </button>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="border-b border-gray-700/50 text-gray-400 text-xs font-orbitron uppercase tracking-widest bg-black/20">
+                            <th class="px-6 py-4 font-semibold">Tanggal</th>
+                            <th class="px-6 py-4 font-semibold">No. Invoice</th>
+                            <th class="px-6 py-4 font-semibold">Customer</th>
+                            <th class="px-6 py-4 font-semibold">Total Nilai</th>
+                            <th class="px-6 py-4 font-semibold">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-penjualan" class="text-sm font-rajdhani text-gray-300 text-lg">
+                        <tr><td colspan="5" class="px-6 py-10 text-center text-neonCyan"><i class="fa-solid fa-circle-notch fa-spin text-3xl mb-3 shadow-[0_0_15px_#00f2fe] rounded-full"></i><br>Inisialisasi Sinkronisasi Excel...</td></tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
- <div class="card">
-        <video src="images/2.mp4" autoplay muted loop playsinline
-    style="width: 100%; height: auto;"></video>
-        <div class="product" data-nama="SKF Kopi WINE" data-harga="15000">
-           <button onclick="addToCart(this)">
-		  <div class="harga">
-      <span class="normal">Rp20.000</span>
-      <span class="diskon">Rp15.000</span></button>
-    </div>  
-      </div>
-   <div class="card">
-         <video src="images/1.mp4" autoplay muted loop playsinline
-    style="width: 100%; height: auto;"></video>
-         <div class="product" data-nama="Beras Premium" data-harga="30000">
-          <button onclick="addToCart(this)">
-		  <div class="harga">
-      <span class="normal">Rp35.000</span>
-      <span class="diskon">Rp30.000</span></button>
-    </div>  
-        </div>
+    </main>
 
-       <div class="card">
-        <video src="images/2.mp4" autoplay muted loop playsinline
-    style="width: 100%; height: auto;"></video>
-        <div class="product" data-nama="SKF Kopi WINE" data-harga="15000">
-           <button onclick="addToCart(this)">
-		  <div class="harga">
-      <span class="normal">Rp20.000</span>
-      <span class="diskon">Rp15.000</span></button>
-    </div>  
-      </div>
-    </div>
-  </div>
-  
-  
-   <div class="promo-banner">
-  <video src="images/banner1.mp4" autoplay muted loop playsinline
-    style="width: 100%; height: auto;"></video>
-   
-  </div>
+    <script>
+        // Register DataLabels Plugin & Chart Settings
+        Chart.register(ChartDataLabels);
+        Chart.defaults.color = '#94a3b8';
+        Chart.defaults.font.family = 'Rajdhani';
+        Chart.defaults.font.size = 14;
 
- 
- <div class="section">
-    <div class="section-title">Best Seller</div>
-	  <div class="video-grid">
-    <div class="live-videos">
+        const formatRupiah = (angka) => {
+            return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(angka);
+        };
 
-      <div class="card">
-         <video src="images/1.mp4" autoplay muted loop playsinline
-    style="width: 100%; height: auto;"></video>
-         <div class="product" data-nama="Beras Premium" data-harga="30000">
-          <button onclick="addToCart(this)">
-		  <div class="harga">
-      <span class="normal">Rp35.000</span>
-      <span class="diskon">Rp30.000</span></button>
-    </div>  
-        </div>
+        const formatShortNumber = (num) => {
+            if (num >= 1000000) return (num / 1000000).toFixed(1) + 'Jt';
+            if (num >= 1000) return (num / 1000).toFixed(1) + 'Rb';
+            return num;
+        };
 
-      <div class="card">
-        <video src="images/2.mp4" autoplay muted loop playsinline
-    style="width: 100%; height: auto;"></video>
-        <div class="product" data-nama="SKF Kopi WINE" data-harga="15000">
-           <button onclick="addToCart(this)">
-		  <div class="harga">
-      <span class="normal">Rp20.000</span>
-      <span class="diskon">Rp15.000</span></button>
-    </div>  
-      </div>
+        let salesChartInstance = null;
+        let stockChartInstance = null;
+        let productChartInstance = null;
+        let customerChartInstance = null;
 
-    <div class="card">
-         <video src="images/1.mp4" autoplay muted loop playsinline
-    style="width: 100%; height: auto;"></video>
-         <div class="product" data-nama="Beras Premium" data-harga="30000">
-          <button onclick="addToCart(this)">
-		  <div class="harga">
-      <span class="normal">Rp35.000</span>
-      <span class="diskon">Rp30.000</span></button>
-    </div>  
-        </div>
- <div class="card">
-        <video src="images/2.mp4" autoplay muted loop playsinline
-    style="width: 100%; height: auto;"></video>
-        <div class="product" data-nama="SKF Kopi WINE" data-harga="15000">
-           <button onclick="addToCart(this)">
-		  <div class="harga">
-      <span class="normal">Rp20.000</span>
-      <span class="diskon">Rp15.000</span></button>
-    </div>  
-      </div>
-   <div class="card">
-         <video src="images/1.mp4" autoplay muted loop playsinline
-    style="width: 100%; height: auto;"></video>
-         <div class="product" data-nama="Beras Premium" data-harga="30000">
-          <button onclick="addToCart(this)">
-		  <div class="harga">
-      <span class="normal">Rp35.000</span>
-      <span class="diskon">Rp30.000</span></button>
-    </div>  
-        </div>
+        // Custom Neon Glow Plugin untuk garis grafik
+        const neonGlowPlugin = {
+            id: 'neonGlow',
+            beforeDatasetsDraw: (chart) => {
+                const ctx = chart.ctx;
+                chart.data.datasets.forEach((dataset, i) => {
+                    const meta = chart.getDatasetMeta(i);
+                    if (meta.type === 'line' || meta.type === 'bar') {
+                        ctx.save();
+                        ctx.shadowColor = (dataset.borderColor && typeof dataset.borderColor === 'string') ? dataset.borderColor : 'rgba(255,255,255,0.5)';
+                        ctx.shadowBlur = 15;
+                        ctx.shadowOffsetX = 0;
+                        ctx.shadowOffsetY = 0;
+                        ctx.stroke();
+                        ctx.restore();
+                    }
+                });
+            }
+        };
+        Chart.register(neonGlowPlugin);
 
-       <div class="card">
-        <video src="images/2.mp4" autoplay muted loop playsinline
-    style="width: 100%; height: auto;"></video>
-        <div class="product" data-nama="SKF Kopi WINE" data-harga="15000">
-           <button onclick="addToCart(this)">
-		  <div class="harga">
-      <span class="normal">Rp20.000</span>
-      <span class="diskon">Rp15.000</span></button>
-    </div>  
-      </div>
-    </div>
-  </div>
-  
-  
-   <div class="promo-banner">
-  <video src="images/banner1.mp4" autoplay muted loop playsinline
-    style="width: 100%; height: auto;"></video>
-   
-  </div>
+        // Core Data Fetch
+        async function loadExcelData() {
+            try {
+                const response = await fetch('PT INTERNATIONAL CASSAVA CENTER.xlsx');
+                if (!response.ok) throw new Error("File Excel tidak ditemukan.");
+                
+                const arrayBuffer = await response.arrayBuffer();
+                const workbook = XLSX.read(arrayBuffer, { type: 'array' });
 
- 
- <div class="section">
-    <div class="section-title">Best Seller</div>
-	  <div class="video-grid">
-    <div class="live-videos">
+                // --- PROSES DATA ---
+                // 1. Stok
+                let labelStok = [], dataStok = [];
+                if (workbook.Sheets['Stok_Gudang']) {
+                    const stokData = XLSX.utils.sheet_to_json(workbook.Sheets['Stok_Gudang']);
+                    let totalStok = 0;
+                    stokData.forEach(row => {
+                        const sisa = parseFloat(row['Sisa Realtime']) || 0;
+                        totalStok += sisa;
+                        if(row['Kategori'] && sisa > 0) {
+                            labelStok.push(row['Kategori']);
+                            dataStok.push(sisa);
+                        }
+                    });
+                    document.getElementById('card-stok').innerText = totalStok.toLocaleString('id-ID') + ' Kg';
+                }
 
-      <div class="card">
-         <video src="images/1.mp4" autoplay muted loop playsinline
-    style="width: 100%; height: auto;"></video>
-         <div class="product" data-nama="Beras Premium" data-harga="30000">
-          <button onclick="addToCart(this)">
-		  <div class="harga">
-      <span class="normal">Rp35.000</span>
-      <span class="diskon">Rp30.000</span></button>
-    </div>  
-        </div>
+                // 2. Pembelian
+                if (workbook.Sheets['Pembelian_Bahan_Baku']) {
+                    const beliData = XLSX.utils.sheet_to_json(workbook.Sheets['Pembelian_Bahan_Baku']);
+                    let totalPembelian = 0;
+                    beliData.forEach(row => totalPembelian += parseFloat(row['Total Tagihan'] || 0));
+                    document.getElementById('card-pembelian').innerText = formatRupiah(totalPembelian);
+                }
 
-      <div class="card">
-        <video src="images/2.mp4" autoplay muted loop playsinline
-    style="width: 100%; height: auto;"></video>
-        <div class="product" data-nama="SKF Kopi WINE" data-harga="15000">
-           <button onclick="addToCart(this)">
-		  <div class="harga">
-      <span class="normal">Rp20.000</span>
-      <span class="diskon">Rp15.000</span></button>
-    </div>  
-      </div>
+                // 3. Kas
+                if (workbook.Sheets['Kas_Keuangan']) {
+                    const kasData = XLSX.utils.sheet_to_json(workbook.Sheets['Kas_Keuangan']);
+                    if (kasData.length > 0) {
+                        const saldoTerakhir = kasData[kasData.length - 1]['Saldo Berjalan'];
+                        document.getElementById('card-kas').innerText = formatRupiah(saldoTerakhir || 0);
+                    }
+                }
 
-    <div class="card">
-         <video src="images/1.mp4" autoplay muted loop playsinline
-    style="width: 100%; height: auto;"></video>
-         <div class="product" data-nama="Beras Premium" data-harga="30000">
-          <button onclick="addToCart(this)">
-		  <div class="harga">
-      <span class="normal">Rp35.000</span>
-      <span class="diskon">Rp30.000</span></button>
-    </div>  
-        </div>
- <div class="card">
-        <video src="images/2.mp4" autoplay muted loop playsinline
-    style="width: 100%; height: auto;"></video>
-        <div class="product" data-nama="SKF Kopi WINE" data-harga="15000">
-           <button onclick="addToCart(this)">
-		  <div class="harga">
-      <span class="normal">Rp20.000</span>
-      <span class="diskon">Rp15.000</span></button>
-    </div>  
-      </div>
-   <div class="card">
-         <video src="images/1.mp4" autoplay muted loop playsinline
-    style="width: 100%; height: auto;"></video>
-         <div class="product" data-nama="Beras Premium" data-harga="30000">
-          <button onclick="addToCart(this)">
-		  <div class="harga">
-      <span class="normal">Rp35.000</span>
-      <span class="diskon">Rp30.000</span></button>
-    </div>  
-        </div>
+                // 4. Penjualan & Charts
+                if (workbook.Sheets['Data_Penjualan']) {
+                    const jualData = XLSX.utils.sheet_to_json(workbook.Sheets['Data_Penjualan']);
+                    let totalPenjualan = 0;
+                    let salesByDate = {}, productSales = {}, customerSales = {};
 
-       <div class="card">
-        <video src="images/2.mp4" autoplay muted loop playsinline
-    style="width: 100%; height: auto;"></video>
-        <div class="product" data-nama="SKF Kopi WINE" data-harga="15000">
-           <button onclick="addToCart(this)">
-		  <div class="harga">
-      <span class="normal">Rp20.000</span>
-      <span class="diskon">Rp15.000</span></button>
-    </div>  
-      </div>
-    </div>
-  </div>
-  
+                    customerSales['Agen'] = 0; customerSales['Grosir'] = 0; customerSales['Pabrik'] = 0; customerSales['Warung'] = 0; customerSales['Online Shope'] = 0;
 
- 
-  <div class="promo-banner">
-  <video src="images/banner1.mp4" autoplay muted loop playsinline
-    style="width: 100%; height: auto;"></video>
-   
-  </div>
+                    const colorMap = {
+                        'Boss Tani': 'rgba(0, 255, 136, 0.7)',
+                        'Nyonya Tani': 'rgba(255, 234, 0, 0.7)',
+                        'Ratu Gunung': 'rgba(255, 0, 127, 0.7)',
+                        'Gunung Putri Tani': 'rgba(79, 172, 254, 0.7)',
+                        'Mocaf Merah Putih': 'rgba(255, 255, 255, 0.6)',
+                        'Tapioka Curah': 'rgba(127, 0, 255, 0.7)'
+                    };
+                    const borderMap = {
+                        'Boss Tani': '#00ff88', 'Nyonya Tani': '#ffea00', 'Ratu Gunung': '#ff007f',
+                        'Gunung Putri Tani': '#4facfe', 'Mocaf Merah Putih': '#ffffff', 'Tapioka Curah': '#7f00ff'
+                    };
 
- 
- <div class="section">
-    <div class="section-title">Best Seller</div>
-	  <div class="video-grid">
-    <div class="live-videos">
+                    Object.keys(colorMap).forEach(prod => productSales[prod] = 0);
 
-      <div class="card">
-         <video src="images/1.mp4" autoplay muted loop playsinline
-    style="width: 100%; height: auto;"></video>
-         <div class="product" data-nama="Beras Premium" data-harga="30000">
-          <button onclick="addToCart(this)">
-		  <div class="harga">
-      <span class="normal">Rp35.000</span>
-      <span class="diskon">Rp30.000</span></button>
-    </div>  
-        </div>
+                    jualData.forEach(row => {
+                        const nilai = parseFloat(row['Total Nilai (Rp)'] || 0);
+                        const tgl = row['Tanggal'];
+                        const merek = row['Merek Produk'];
+                        let kategoriCust = row['Kategori Customer'];
+                        
+                        if (kategoriCust == 'Online Shop') kategoriCust = 'Online Shope';
+                        totalPenjualan += nilai;
 
-      <div class="card">
-        <video src="images/2.mp4" autoplay muted loop playsinline
-    style="width: 100%; height: auto;"></video>
-        <div class="product" data-nama="SKF Kopi WINE" data-harga="15000">
-           <button onclick="addToCart(this)">
-		  <div class="harga">
-      <span class="normal">Rp20.000</span>
-      <span class="diskon">Rp15.000</span></button>
-    </div>  
-      </div>
+                        if(tgl) salesByDate[tgl] = (salesByDate[tgl] || 0) + nilai;
+                        if(merek) productSales[merek] = (productSales[merek] || 0) + (parseFloat(row['Qty']) || 0);
+                        if(kategoriCust) customerSales[kategoriCust] = (customerSales[kategoriCust] || 0) + nilai;
+                    });
+                    
+                    document.getElementById('card-penjualan').innerText = formatRupiah(totalPenjualan);
 
-    <div class="card">
-         <video src="images/1.mp4" autoplay muted loop playsinline
-    style="width: 100%; height: auto;"></video>
-         <div class="product" data-nama="Beras Premium" data-harga="30000">
-          <button onclick="addToCart(this)">
-		  <div class="harga">
-      <span class="normal">Rp35.000</span>
-      <span class="diskon">Rp30.000</span></button>
-    </div>  
-        </div>
- <div class="card">
-        <video src="images/2.mp4" autoplay muted loop playsinline
-    style="width: 100%; height: auto;"></video>
-        <div class="product" data-nama="SKF Kopi WINE" data-harga="15000">
-           <button onclick="addToCart(this)">
-		  <div class="harga">
-      <span class="normal">Rp20.000</span>
-      <span class="diskon">Rp15.000</span></button>
-    </div>  
-      </div>
-   <div class="card">
-         <video src="images/1.mp4" autoplay muted loop playsinline
-    style="width: 100%; height: auto;"></video>
-         <div class="product" data-nama="Beras Premium" data-harga="30000">
-          <button onclick="addToCart(this)">
-		  <div class="harga">
-      <span class="normal">Rp35.000</span>
-      <span class="diskon">Rp30.000</span></button>
-    </div>  
-        </div>
+                    // Render Grafik
+                    renderSalesChart(Object.keys(salesByDate).sort(), Object.keys(salesByDate).sort().map(tgl => salesByDate[tgl]));
+                    renderStockChart(labelStok, dataStok);
+                    
+                    const sortedProducts = Object.keys(productSales).sort((a,b) => productSales[b] - productSales[a]);
+                    renderProductChart(
+                        sortedProducts, 
+                        sortedProducts.map(p => productSales[p]), 
+                        sortedProducts.map(p => colorMap[p] || 'rgba(255,255,255,0.2)'), 
+                        sortedProducts.map(p => borderMap[p] || '#ffffff')
+                    );
 
-       <div class="card">
-        <video src="images/2.mp4" autoplay muted loop playsinline
-    style="width: 100%; height: auto;"></video>
-        <div class="product" data-nama="SKF Kopi WINE" data-harga="15000">
-           <button onclick="addToCart(this)">
-		  <div class="harga">
-      <span class="normal">Rp20.000</span>
-      <span class="diskon">Rp15.000</span></button>
-    </div>  
-      </div>
-    </div>
-  </div>
- 
- 
- 
-  <div class="promo-banner">
-  <video src="images/banner1.mp4" autoplay muted loop playsinline
-    style="width: 100%; height: auto;"></video>
-   
-  </div>
+                    renderCustomerChart(Object.keys(customerSales), Object.keys(customerSales).map(c => customerSales[c]));
 
- 
- <div class="section">
-    <div class="section-title">Best Seller</div>
-	  <div class="video-grid">
-    <div class="live-videos">
+                    // Render Tabel Log Transaksi
+                    const tableBody = document.getElementById('table-penjualan');
+                    tableBody.innerHTML = ''; 
+                    const recentSales = jualData.slice(-7).reverse(); 
 
-      <div class="card">
-         <video src="images/1.mp4" autoplay muted loop playsinline
-    style="width: 100%; height: auto;"></video>
-         <div class="product" data-nama="Beras Premium" data-harga="30000">
-          <button onclick="addToCart(this)">
-		  <div class="harga">
-      <span class="normal">Rp35.000</span>
-      <span class="diskon">Rp30.000</span></button>
-    </div>  
-        </div>
+                    recentSales.forEach(row => {
+                        const status = (row['Status Bayar'] || '').toLowerCase();
+                        let statusBadge = status.includes('lunas') ? 
+                            '<span class="px-3 py-1 rounded border border-neonGreen text-[11px] font-orbitron font-bold bg-neonGreen/10 text-neonGreen shadow-[0_0_10px_rgba(0,255,136,0.3)]">LUNAS</span>' : 
+                            '<span class="px-3 py-1 rounded border border-neonYellow text-[11px] font-orbitron font-bold bg-neonYellow/10 text-neonYellow shadow-[0_0_10px_rgba(255,234,0,0.3)]">TEMPO</span>';
 
-      <div class="card">
-        <video src="images/2.mp4" autoplay muted loop playsinline
-    style="width: 100%; height: auto;"></video>
-        <div class="product" data-nama="SKF Kopi WINE" data-harga="15000">
-           <button onclick="addToCart(this)">
-		  <div class="harga">
-      <span class="normal">Rp20.000</span>
-      <span class="diskon">Rp15.000</span></button>
-    </div>  
-      </div>
+                        tableBody.innerHTML += `
+                            <tr class="border-b border-gray-800 hover:bg-neonCyan/5 transition-colors group">
+                                <td class="px-6 py-4 text-gray-400 font-mono text-xs">${row['Tanggal'] || '-'}</td>
+                                <td class="px-6 py-4 font-bold text-white font-orbitron">${row['No. Invoice'] || '-'}</td>
+                                <td class="px-6 py-4 text-cyan-200">${row['Nama Customer'] || '-'}</td>
+                                <td class="px-6 py-4 font-bold text-neonCyan glow-cyan">${formatRupiah(row['Total Nilai (Rp)'] || 0)}</td>
+                                <td class="px-6 py-4">${statusBadge}</td>
+                            </tr>
+                        `;
+                    });
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                document.getElementById('table-penjualan').innerHTML = `<tr><td colspan="5" class="px-6 py-10 text-center text-neonPink font-orbitron"><i class="fa-solid fa-triangle-exclamation text-3xl mb-2"></i><br>GAGAL MEMUAT DATA. Pastikan file Excel berada di folder yang sama dan dijalankan lewat Local Server.</td></tr>`;
+            }
+        }
 
-    <div class="card">
-         <video src="images/1.mp4" autoplay muted loop playsinline
-    style="width: 100%; height: auto;"></video>
-         <div class="product" data-nama="Beras Premium" data-harga="30000">
-          <button onclick="addToCart(this)">
-		  <div class="harga">
-      <span class="normal">Rp35.000</span>
-      <span class="diskon">Rp30.000</span></button>
-    </div>  
-        </div>
- <div class="card">
-        <video src="images/2.mp4" autoplay muted loop playsinline
-    style="width: 100%; height: auto;"></video>
-        <div class="product" data-nama="SKF Kopi WINE" data-harga="15000">
-           <button onclick="addToCart(this)">
-		  <div class="harga">
-      <span class="normal">Rp20.000</span>
-      <span class="diskon">Rp15.000</span></button>
-    </div>  
-      </div>
-   <div class="card">
-         <video src="images/1.mp4" autoplay muted loop playsinline
-    style="width: 100%; height: auto;"></video>
-         <div class="product" data-nama="Beras Premium" data-harga="30000">
-          <button onclick="addToCart(this)">
-		  <div class="harga">
-      <span class="normal">Rp35.000</span>
-      <span class="diskon">Rp30.000</span></button>
-    </div>  
-        </div>
+        // --- CHART RENDERERS ---
 
-       <div class="card">
-        <video src="images/2.mp4" autoplay muted loop playsinline
-    style="width: 100%; height: auto;"></video>
-        <div class="product" data-nama="SKF Kopi WINE" data-harga="15000">
-           <button onclick="addToCart(this)">
-		  <div class="harga">
-      <span class="normal">Rp20.000</span>
-      <span class="diskon">Rp15.000</span></button>
-    </div>  
-      </div>
-    </div>
-  </div>
- 
-  <div class="promo-banner">
-  <video src="images/banner1.mp4" autoplay muted loop playsinline
-    style="width: 100%; height: auto;"></video>
-   
-  </div>
+        function renderSalesChart(labels, data) {
+            const ctx = document.getElementById('salesChart').getContext('2d');
+            const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+            gradient.addColorStop(0, 'rgba(0, 242, 254, 0.4)');
+            gradient.addColorStop(1, 'rgba(0, 242, 254, 0)');
 
- 
- <div class="section">
-    <div class="section-title">Best Seller</div>
-	  <div class="video-grid">
-    <div class="live-videos">
+            if (salesChartInstance) salesChartInstance.destroy();
+            salesChartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Pendapatan (Rp)',
+                        data: data,
+                        borderColor: '#00f2fe',
+                        backgroundColor: gradient,
+                        borderWidth: 3,
+                        pointBackgroundColor: '#050814',
+                        pointBorderColor: '#00f2fe',
+                        pointBorderWidth: 2,
+                        pointRadius: 5,
+                        pointHoverRadius: 8,
+                        fill: true,
+                        tension: 0.3
+                    }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: { 
+                        legend: { display: false },
+                        datalabels: {
+                            color: '#00f2fe',
+                            align: 'top',
+                            offset: 5,
+                            font: { family: 'Orbitron', size: 10, weight: 'bold' },
+                            formatter: (value) => { return formatShortNumber(value); },
+                            display: function(context) { return context.dataIndex % 2 === 0; } // Tampilkan selang-seling agar tidak menumpuk
+                        }
+                    },
+                    scales: {
+                        x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { font: { family: 'Orbitron', size: 10 } } },
+                        y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { font: { family: 'Orbitron', size: 10 }, callback: v => formatShortNumber(v) } }
+                    }
+                }
+            });
+        }
 
-      <div class="card">
-         <video src="images/1.mp4" autoplay muted loop playsinline
-    style="width: 100%; height: auto;"></video>
-         <div class="product" data-nama="Beras Premium" data-harga="30000">
-          <button onclick="addToCart(this)">
-		  <div class="harga">
-      <span class="normal">Rp35.000</span>
-      <span class="diskon">Rp30.000</span></button>
-    </div>  
-        </div>
+        function renderStockChart(labels, data) {
+            const ctx = document.getElementById('stockChart').getContext('2d');
+            if (stockChartInstance) stockChartInstance.destroy();
+            stockChartInstance = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: data,
+                        backgroundColor: ['rgba(0, 242, 254, 0.8)', 'rgba(127, 0, 255, 0.8)', 'rgba(0, 255, 136, 0.8)', 'rgba(255, 234, 0, 0.8)'],
+                        borderColor: '#050814',
+                        borderWidth: 3,
+                        hoverOffset: 10
+                    }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false, cutout: '60%',
+                    plugins: {
+                        legend: { display: false }, // Sembunyikan legend luar karena info sudah di dalam
+                        datalabels: {
+                            color: '#ffffff',
+                            font: { family: 'Orbitron', weight: 'bold', size: 11 },
+                            textAlign: 'center',
+                            textShadowColor: '#000',
+                            textShadowBlur: 5,
+                            formatter: (value, ctx) => { 
+                                // Format: Nama Kategori (Baris Baru) Nilai Kg
+                                const label = ctx.chart.data.labels[ctx.dataIndex];
+                                return label + '\n' + value + ' Kg'; 
+                            }
+                        }
+                    }
+                }
+            });
+        }
 
-      <div class="card">
-        <video src="images/2.mp4" autoplay muted loop playsinline
-    style="width: 100%; height: auto;"></video>
-        <div class="product" data-nama="SKF Kopi WINE" data-harga="15000">
-           <button onclick="addToCart(this)">
-		  <div class="harga">
-      <span class="normal">Rp20.000</span>
-      <span class="diskon">Rp15.000</span></button>
-    </div>  
-      </div>
+        function renderProductChart(labels, data, bgColors, borderColors) {
+            const ctx = document.getElementById('productChart').getContext('2d');
+            if (productChartInstance) productChartInstance.destroy();
+            productChartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Qty Terjual',
+                        data: data,
+                        backgroundColor: bgColors,
+                        borderColor: borderColors,
+                        borderWidth: 2,
+                        borderRadius: 4,
+                        barPercentage: 0.7
+                    }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        datalabels: {
+                            color: '#ffffff',
+                            anchor: 'end',
+                            align: 'bottom', // Text di dalam bar bagian atas
+                            font: { family: 'Orbitron', weight: 'bold', size: 12 },
+                            textShadowColor: '#000',
+                            textShadowBlur: 5,
+                            formatter: (value) => { return value > 0 ? value : ''; }
+                        }
+                    },
+                    scales: {
+                        x: { grid: { display: false }, ticks: { color: '#94a3b8', font: { family: 'Rajdhani', size: 12, weight: 'bold' } } },
+                        y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { font: { family: 'Orbitron', size: 10 } } }
+                    }
+                }
+            });
+        }
 
-    <div class="card">
-         <video src="images/1.mp4" autoplay muted loop playsinline
-    style="width: 100%; height: auto;"></video>
-         <div class="product" data-nama="Beras Premium" data-harga="30000">
-          <button onclick="addToCart(this)">
-		  <div class="harga">
-      <span class="normal">Rp35.000</span>
-      <span class="diskon">Rp30.000</span></button>
-    </div>  
-        </div>
- <div class="card">
-        <video src="images/2.mp4" autoplay muted loop playsinline
-    style="width: 100%; height: auto;"></video>
-        <div class="product" data-nama="SKF Kopi WINE" data-harga="15000">
-           <button onclick="addToCart(this)">
-		  <div class="harga">
-      <span class="normal">Rp20.000</span>
-      <span class="diskon">Rp15.000</span></button>
-    </div>  
-      </div>
-   <div class="card">
-         <video src="images/1.mp4" autoplay muted loop playsinline
-    style="width: 100%; height: auto;"></video>
-         <div class="product" data-nama="Beras Premium" data-harga="30000">
-          <button onclick="addToCart(this)">
-		  <div class="harga">
-      <span class="normal">Rp35.000</span>
-      <span class="diskon">Rp30.000</span></button>
-    </div>  
-        </div>
+        function renderCustomerChart(labels, data) {
+            const ctx = document.getElementById('customerChart').getContext('2d');
+            if (customerChartInstance) customerChartInstance.destroy();
+            customerChartInstance = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: data,
+                        backgroundColor: [
+                            'rgba(127, 0, 255, 0.8)', // Purple
+                            'rgba(0, 242, 254, 0.8)',  // Cyan
+                            'rgba(255, 0, 127, 0.8)', // Pink
+                            'rgba(255, 234, 0, 0.8)',  // Yellow
+                            'rgba(0, 255, 136, 0.8)'   // Green
+                        ],
+                        borderColor: '#050814',
+                        borderWidth: 3,
+                        hoverOffset: 10
+                    }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }, // Info pindah ke dalam chart
+                        datalabels: {
+                            color: '#ffffff',
+                            font: { family: 'Orbitron', weight: 'bold', size: 11 },
+                            textAlign: 'center',
+                            textShadowColor: '#000',
+                            textShadowBlur: 5,
+                            formatter: (value, ctx) => { 
+                                if(value === 0) return '';
+                                let sum = ctx.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+                                let percentage = (value*100 / sum).toFixed(1)+"%";
+                                const label = ctx.chart.data.labels[ctx.dataIndex];
+                                // Format: Nama Kategori (Baris Baru) Persentase
+                                return label + '\n' + percentage;
+                            }
+                        }
+                    }
+                }
+            });
+        }
 
-       <div class="card">
-        <video src="images/2.mp4" autoplay muted loop playsinline
-    style="width: 100%; height: auto;"></video>
-        <div class="product" data-nama="SKF Kopi WINE" data-harga="15000">
-           <button onclick="addToCart(this)">
-		  <div class="harga">
-      <span class="normal">Rp20.000</span>
-      <span class="diskon">Rp15.000</span></button>
-    </div>  
-      </div>
-    </div>
-  </div>
- 
- 
-  <div class="promo-banner">
-  <video src="images/banner1.mp4" autoplay muted loop playsinline
-    style="width: 100%; height: auto;"></video>
-   
-  </div>
+        // Realtime Sci-Fi Clock
+        function updateClock() {
+            const now = new Date();
+            const timeStr = now.toTimeString().split(' ')[0];
+            document.getElementById('live-clock').innerText = timeStr;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
 
- 
- <div class="section">
-    <div class="section-title">Best Seller</div>
-	  <div class="video-grid">
-    <div class="live-videos">
-
-      <div class="card">
-         <video src="images/1.mp4" autoplay muted loop playsinline
-    style="width: 100%; height: auto;"></video>
-         <div class="product" data-nama="Beras Premium" data-harga="30000">
-          <button onclick="addToCart(this)">
-		  <div class="harga">
-      <span class="normal">Rp35.000</span>
-      <span class="diskon">Rp30.000</span></button>
-    </div>  
-        </div>
-
-      <div class="card">
-        <video src="images/2.mp4" autoplay muted loop playsinline
-    style="width: 100%; height: auto;"></video>
-        <div class="product" data-nama="SKF Kopi WINE" data-harga="15000">
-           <button onclick="addToCart(this)">
-		  <div class="harga">
-      <span class="normal">Rp20.000</span>
-      <span class="diskon">Rp15.000</span></button>
-    </div>  
-      </div>
-
-    <div class="card">
-         <video src="images/1.mp4" autoplay muted loop playsinline
-    style="width: 100%; height: auto;"></video>
-         <div class="product" data-nama="Beras Premium" data-harga="30000">
-          <button onclick="addToCart(this)">
-		  <div class="harga">
-      <span class="normal">Rp35.000</span>
-      <span class="diskon">Rp30.000</span></button>
-    </div>  
-        </div>
- <div class="card">
-        <video src="images/2.mp4" autoplay muted loop playsinline
-    style="width: 100%; height: auto;"></video>
-        <div class="product" data-nama="SKF Kopi WINE" data-harga="15000">
-           <button onclick="addToCart(this)">
-		  <div class="harga">
-      <span class="normal">Rp20.000</span>
-      <span class="diskon">Rp15.000</span></button>
-    </div>  
-      </div>
-   <div class="card">
-         <video src="images/1.mp4" autoplay muted loop playsinline
-    style="width: 100%; height: auto;"></video>
-         <div class="product" data-nama="Beras Premium" data-harga="30000">
-          <button onclick="addToCart(this)">
-		  <div class="harga">
-      <span class="normal">Rp35.000</span>
-      <span class="diskon">Rp30.000</span></button>
-    </div>  
-        </div>
-
-       <div class="card">
-        <video src="images/2.mp4" autoplay muted loop playsinline
-    style="width: 100%; height: auto;"></video>
-        <div class="product" data-nama="SKF Kopi WINE" data-harga="15000">
-           <button onclick="addToCart(this)">
-		  <div class="harga">
-      <span class="normal">Rp20.000</span>
-      <span class="diskon">Rp15.000</span></button>
-    </div>  
-      </div>
-    </div>
-  </div>
- 
- 
- 
- 
- 
- 
- 
- 
- 
-  <div class="product-card">
-    <video src="images/team.mp4" autoplay muted loop playsinline
-    style="width: 100%; height: auto;"></video>
-  </div>
-  
-  
-  
-  
-  <div class="bottom-nav">
-    <div>🏠<br>Beranda</div>
-    <div>🔥<br>Trending</div>
-    <div>🎥<br>Live & Video</div>
-    <div style="position: relative;">
-      🔔<br>Notifikasi
-      <span class="badge">51</span>
-    </div>
-    <div>👤<br>Saya</div>
-  </div>
-  </div>
-  
-  </div>
-  </div>
- <script>
-  let cart = [];
-
-  function addToCart(btn) {
-    const product = btn.parentElement;
-    const nama = product.getAttribute('data-nama');
-    const harga = parseInt(product.getAttribute('data-harga'));
-
-    cart.push({ nama, harga });
-
-    // Play notification sound
-    document.getElementById('cartSound').play();
-
-    updateCart();
-  }
-
-  function updateCart() {
-    const produkList = cart.map(p => p.nama).join(', ');
-    const total = cart.reduce((sum, p) => sum + p.harga, 0);
-
-    document.getElementById('produkList').innerText = produkList || '-';
-    document.getElementById('cartTotal').innerText = total;
-    document.getElementById('produk').value = produkList;
-    document.getElementById('jumlahBayar').value = `Rp ${total}`;
-
-    // Update icon jumlah produk di keranjang
-    document.getElementById('cartCount').innerText = cart.length;
-  }
-
-  async function generatePDF() {
-    const nama = document.getElementById('nama').value.trim();
-    const alamat = document.getElementById('alamat').value.trim();
-    const nohp = document.getElementById('nohp').value.trim();
-    const produk = document.getElementById('produk').value;
-    const jumlahBayar = document.getElementById('jumlahBayar').value;
-
-    // Validasi input wajib
-    if (!nama || !alamat || !nohp || cart.length === 0) {
-      alert("Mohon lengkapi formulir dan tambahkan produk ke keranjang sebelum checkout.");
-      return;
-    }
-
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
-
-    doc.text("Bukti Pembelian Kopi Kenangan", 10, 10);
-    doc.text(`Nama: ${nama}`, 10, 20);
-    doc.text(`Alamat: ${alamat}`, 10, 30);
-    doc.text(`No HP: ${nohp}`, 10, 40);
-    doc.text(`Produk: ${produk}`, 10, 50);
-    doc.text(`Jumlah Bayar: ${jumlahBayar}`, 10, 60);
-
-    doc.save(`Bukti_Pembelian_${nama}.pdf`);
-
-    // Reset keranjang dan formulir
-    cart = [];
-    updateCart();
-    document.getElementById('checkoutForm').reset();
-  }
-</script>
-
-
-
-
- 
-
-
-
-
-
+        // Init
+        window.onload = loadExcelData;
+    </script>
 </body>
 </html>
